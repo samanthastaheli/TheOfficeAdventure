@@ -6,9 +6,6 @@ from game import constants
 class MoveActorsAction(Action):
 
     def execute(self, cast):
-        # ball = cast["balls"][0] # there's only one in the cast
-        # ball.
-
         for group in cast.values():
             for actor in group:
                 if not actor.get_velocity().is_zero():

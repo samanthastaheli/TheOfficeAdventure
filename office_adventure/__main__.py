@@ -10,9 +10,8 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 # TODO: Add imports similar to the following when you create these classes
-from game.brick import Brick
-from game.ball import Ball
-from game.paddle import Paddle
+from game.player import Player
+from game.target import Target
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.handle_offscreen_action import HandleOffScreenAction
@@ -24,33 +23,14 @@ def main():
     cast = {}
 
     # create all actors for the cast to be added to later
-    cast["bricks"] = []
-    cast["balls"] = []
-    cast["paddle"] = []
+    cast["player"] = []
+    cast["targets"] = []
 
-    # TODO: Create bricks here and add them to the list
-    brick_list = []
+    # TODO: Create targets here and add them to the list
+    target_list = []
 
-    for y in range(constants.BORDER, (constants.BRICK_SPACE + constants.BRICK_HEIGHT) * constants.BRICK_ROWS, constants.BRICK_SPACE + constants.BRICK_HEIGHT):
-        for x in range(constants.BORDER, (constants.BRICK_SPACE + constants.BRICK_WIDTH) * constants.BRICK_COLUMNS, constants.BRICK_SPACE + constants.BRICK_WIDTH):
-            brick = Brick()
-            brick.create_brick(x,y)
-            brick_list.append(brick)
-    cast["bricks"] = brick_list
-
-    # TODO: Create a ball here and add it to the list
-    ball_list = []
-    ball = Ball()
-    ball.create_ball(int(constants.BALL_X), int(constants.BALL_Y))
-    ball_list.append(ball)
-    cast["balls"] = ball_list
-
-    # TODO: Create a paddle here and add it to the list
-    paddle_list = []
-    paddle = Paddle()
-    paddle.create_paddle()
-    paddle_list.append(paddle)
-    cast["paddles"] = paddle_list
+    # TODO: Create a player here and add it to the list
+    player_list = []
 
     # Create the script {key: tag, value: list}
     script = {}
@@ -74,7 +54,7 @@ def main():
 
 
     # Start the game
-    output_service.open_window("Batter");
+    output_service.open_window("The Office Adventure");
     audio_service.start_audio()
     audio_service.play_sound(constants.SOUND_START)
     

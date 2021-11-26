@@ -23,62 +23,48 @@ class HandleCollisionsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
         # get cast
-        paddle = cast["paddles"][0]
-        bricks = cast["bricks"]
-        balls = cast["balls"]
-
-        for ball in balls:
-            if self._physics_service.is_collision(ball, paddle):
-                self.check_collision(ball, paddle)
-            for brick in bricks:
-                if self._physics_service.is_collision(ball, brick):
-                    self.check_collision(ball, brick)
-                    bricks.remove(brick)
+        player = cast["players"][0]
+        target = cast["target"]
 
     def check_collision(self, actor1, actor2):
-        ''' Checks whihc axis collision was. Changes ball direction.
-        todo: play sound when collison happens 
-
+        ''' Checks which axis collision was.
+            Checks if target collides with player
         Arg:
-            actor1: actor from cast dictionary (usually ball)
-            actor2: actor from cast dictionary (usually paddle)
+            actor1: actor from cast dictionary (usually target)
+            actor2: actor from cast dictionary (usually player)
         '''
-        if self.check_direction(actor1, actor2) == 'top' or self.check_direction(actor1, actor2) == 'bottom':
-            self._audio_service.play_sound(constants.SOUND_BOUNCE)
-            self.bounce_y(actor1)
-        elif self.check_direction(actor1, actor2) == 'left' or self.check_direction(actor1, actor2) == 'right':
-            self._audio_service.play_sound(constants.SOUND_BOUNCE)
-            self.bounce_x(actor1)
+        # TODO: add if statement
+        pass
 
-    def check_direction(self, ball, actor2):
-        '''Checks what direction ball needs to go when it collides with brick or paddle.
+    def check_direction(self, target, actor2):
+        '''Checks what direction ball needs to go when it collides with brick or player.
         Args:
-            ball: ball actor
-            actor2: another actor, ususally brick or paddle
+            target: target (object to be found) actor
+            actor2: another actor, ususally brick or player
         '''
-        position = ball.get_position()
+        position = target.get_position()
         x = position.get_x()
         y = position.get_y()
 
-        if ball.get_bottom_edge() >= actor2.get_top_edge():
-            ball.set_position(Point(x, (y - constants.BRICK_SPACE)))
+        if target.get_bottom_edge() >= actor2.get_top_edge():
+            target.set_position(Point(x, (y - constants.BORDER)))
             return 'top'
-        elif ball.get_top_edge() <= actor2.get_bottom_edge():
-            ball.set_position(Point(x, (y + constants.BRICK_SPACE)))
+        elif target.get_top_edge() <= actor2.get_bottom_edge():
+            target.set_position(Point(x, (y + constants.BORDER)))
             return 'bottom'
-        elif ball.get_left_edge() <= actor2.get_right_edge():
+        elif target.get_left_edge() <= actor2.get_right_edge():
             return 'left'
-        elif ball.get_right_edge() >= actor2.get_left_edge():
+        elif target.get_right_edge() >= actor2.get_left_edge():
             return 'right'
         else:
             return 'none'
     
-    def bounce_x(self, ball):
-        dx = ball.get_velocity().get_x()
-        dy = ball.get_velocity().get_y()
-        ball.set_velocity(Point(-dx,dy))
+    def bounce_x(self, target):
+        dx = target.get_velocity().get_x()
+        dy = target.get_velocity().get_y()
+        target.set_velocity(Point(-dx,dy))
         
-    def bounce_y(self, ball):
-        dx = ball.get_velocity().get_x()
-        dy = ball.get_velocity().get_y()
-        ball.set_velocity(Point(dx,-dy))
+    def bounce_y(self, target):
+        dx = target.get_velocity().get_x()
+        dy = target.get_velocity().get_y()
+        target.set_velocity(Point(dx,-dy))
