@@ -16,21 +16,31 @@ from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.handle_offscreen_action import HandleOffScreenAction
 from game.move_actors_action import MoveActorsAction
+import random
 
 def main():
 
     # create the cast {key: tag, value: list}
     cast = {}
 
-    # create all actors for the cast to be added to later
     cast["player"] = []
-    cast["targets"] = []
-
-    # TODO: Create targets here and add them to the list
-    target_list = []
 
     # TODO: Create a player here and add it to the list
+    # x = int(constants.MAX_X / 2)
+    # y = int(constants.MAX_Y / 2)
+    # position = Point(x, y)
+    # player = Player()
+    # player.set_position(position)
+    # cast["player"] = [player]
+
     player_list = []
+    player = Player()
+    player.create_player()
+    player_list.append(player)
+    cast["player"] = player_list
+
+    # TODO: Create targets here and add them to the list
+    target = []
 
     # Create the script {key: tag, value: list}
     script = {}

@@ -23,8 +23,8 @@ class HandleCollisionsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
         # get cast
-        player = cast["players"][0]
-        target = cast["target"]
+        # player = cast["players"][0]
+        # target = cast["target"]
 
     def check_collision(self, actor1, actor2):
         ''' Checks which axis collision was.

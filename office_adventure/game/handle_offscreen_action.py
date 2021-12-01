@@ -18,4 +18,5 @@ class HandleOffScreenAction(Action):
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
-        player = cast["players"][0]
+        # player = cast["players"][0]
+        pass
