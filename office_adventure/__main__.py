@@ -60,11 +60,17 @@ def main():
         wall.create_wall(x, constants.MAX_Y-constants.BORDER)
         wall_list.append(wall)
     # create bottom right border
-    right_border = int(left_border + constants.BORDER)
     right_bottom_start = int(left_border + constants.BORDER)
     for x in range(right_bottom_start, constants.MAX_X, constants.WALL_WIDTH): 
         wall = Wall()
         wall.create_wall(x, constants.MAX_Y-constants.BORDER)
+        wall_list.append(wall)
+    # create obstacles 
+    for _ in range(constants.BLOCK_COUNT): 
+        x = random.randint(0, constants.RANGE_X)
+        y = random.randint(0, constants.RANGE_Y)
+        wall = Wall()
+        wall.create_wall(x, y)
         wall_list.append(wall)
     cast["walls"] = wall_list
     # level_list = []
@@ -74,7 +80,15 @@ def main():
     # cast["levels"] = level_list
 
     # TODO: Create targets here and add them to the list
-    target = []
+    target_list = []
+
+    for _ in range(constants.BLOCK_COUNT): 
+        x = random.randint(0, constants.RANGE_X)
+        y = random.randint(0, constants.RANGE_Y)
+        target = Target()
+        target.create_target(x, y)
+        target_list.append(target)
+    cast["targets"] = target_list
     
     # Create the script {key: tag, value: list}
     script = {}
@@ -94,8 +108,6 @@ def main():
     script["input"] = [control_actors_action]
     script["update"] = [move_actors_action, handle_offscreen_action, handle_collisions_action]
     script["output"] = [draw_actors_action]
-
-
 
     # Start the game
     output_service.open_window("The Office Adventure");

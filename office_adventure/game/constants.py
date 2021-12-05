@@ -11,6 +11,8 @@ DEFAULT_FONT_SIZE = 20
 DEFAULT_TEXT_OFFSET = 4
 
 IMAGE_DEFAULT = os.path.join(os.getcwd(), "./office_adventure/assets/donatello.png")
+IMAGE_TARGET = os.path.join(os.getcwd(), "./office_adventure/assets/red_block.png")
+
 
 SOUND_START = os.path.join(os.getcwd(), "./office_adventure/assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./office_adventure/assets/boing.wav")
@@ -30,13 +32,17 @@ TARGET_Y = MAX_Y - 25
 # TARGET_SPEED = 0
 
 TARGET_WIDTH = 100
-TARGET_HEIGHT = 50
+TARGET_HEIGHT = 100
+
+BLOCK_COUNT = 12
+RANGE_Y = 1200
+RANGE_X = MAX_X
 
 PLAYER_WIDTH = 75
 PLAYER_HEIGHT = 75
 
-WALL_WIDTH = 50
-WALL_HEIGHT = 50
+WALL_WIDTH = 100
+WALL_HEIGHT = 100
 WALL_SPACE = 100
 
 WALL_X = 100

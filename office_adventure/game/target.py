@@ -11,6 +11,6 @@ class Target(Actor):
 
     def create_target(self, x, y):
         self._target = self.set_position(Point(x, y))
-        self.set_image(constants.IMAGE_DEFAULT)
+        self.set_image(constants.IMAGE_TARGET)
         self.set_height(constants.TARGET_HEIGHT)
         self.set_width(constants.TARGET_WIDTH)
