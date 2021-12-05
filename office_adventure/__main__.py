@@ -11,6 +11,8 @@ from game.audio_service import AudioService
 
 # TODO: Add imports similar to the following when you create these classes
 from game.player import Player
+from game.level_factory import LevelFactory
+from game.wall import Wall
 from game.target import Target
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
@@ -24,24 +26,56 @@ def main():
     cast = {}
 
     cast["player"] = []
+    cast["targets"] = []
+    cast["walls"] = []
+    cast["levels"] = []
 
     # TODO: Create a player here and add it to the list
-    # x = int(constants.MAX_X / 2)
-    # y = int(constants.MAX_Y / 2)
-    # position = Point(x, y)
-    # player = Player()
-    # player.set_position(position)
-    # cast["player"] = [player]
-
     player_list = []
     player = Player()
     player.create_player()
     player_list.append(player)
     cast["player"] = player_list
 
+    # TODO: Create walls here and add them to the list
+    wall_list = []
+
+    # for y in range(constants.BORDER, constants.MAZE_HEIGHT):
+    #     for x in range(constants.BORDER, constants.MAZE_WIDTH):
+    #         wall = Wall()
+    #         wall.create_wall(x, y)
+    #         wall_list.append(wall)
+    # cast["walls"] = wall_list
+
+    # create top of maze
+    for x in range(0, int(constants.WALL_WIDTH + constants.MAX_X), constants.WALL_WIDTH):
+        wall = Wall()
+        wall.create_wall(x, 0)
+        wall_list.append(wall)
+        x+=constants.WALL_WIDTH
+    # create bottom left border
+    left_border = int((constants.MAX_X/2) + constants.WALL_WIDTH - constants.BORDER)
+    for x in range(0, left_border, constants.WALL_WIDTH):
+        wall = Wall()
+        wall.create_wall(x, constants.MAX_Y-constants.BORDER)
+        wall_list.append(wall)
+    # create bottom right border
+    right_border = int(left_border + constants.BORDER)
+    right_bottom_start = int(left_border + constants.BORDER)
+    for x in range(right_bottom_start, constants.MAX_X, constants.WALL_WIDTH): 
+        wall = Wall()
+        wall.create_wall(x, constants.MAX_Y-constants.BORDER)
+        wall_list.append(wall)
+    cast["walls"] = wall_list
+    # level_list = []
+    # level = LevelFactory()
+    # level.create_maze()
+    # level_list.append(level)
+    # cast["levels"] = level_list
+
     # TODO: Create targets here and add them to the list
     target = []
-
+    
     # Create the script {key: tag, value: list}
     script = {}
 

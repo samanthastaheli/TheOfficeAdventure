@@ -75,3 +75,4 @@
 ### Other child classes for more customization of game:
 - Character
 - Object
+- Walls
