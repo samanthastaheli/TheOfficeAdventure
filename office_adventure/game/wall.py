@@ -12,5 +12,5 @@ class Wall(Actor):
     def create_wall(self, x, y):
         self._wall = self.set_position(Point(x, y))
         # self.set_image(constants.IMAGE_DEFAULT)
-        self.set_height(constants.WALL_HEIGHT)
-        self.set_width(constants.WALL_WIDTH)
+        self.set_height(constants.WALL_SIZE)
+        self.set_width(constants.WALL_SIZE)

@@ -1,7 +1,7 @@
 import os
 
 MAX_X = 2000
-MAX_Y = 1500
+MAX_Y = MAX_X - 500
 FRAME_RATE = 30
 
 BORDER = 200
@@ -18,14 +18,6 @@ SOUND_START = os.path.join(os.getcwd(), "./office_adventure/assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./office_adventure/assets/boing.wav")
 SOUND_OVER = os.path.join(os.getcwd(), "./office_adventure/assets/over.wav")
 
-PLAYER_X = MAX_X / 2
-PLAYER_Y = MAX_Y - 125
-
-PLAYER_DX = 8
-PLAYER_DY = PLAYER_DX * -1
-
-PLAYER_SPEED = 10
-
 TARGET_X = MAX_X / 2
 TARGET_Y = MAX_Y - 25
 
@@ -38,15 +30,21 @@ BLOCK_COUNT = 12
 RANGE_Y = 1200
 RANGE_X = MAX_X
 
-PLAYER_WIDTH = 75
-PLAYER_HEIGHT = 75
-
-WALL_WIDTH = 100
-WALL_HEIGHT = 25
-WALL_SPACE = 100
-
-WALL_X = 100
-WALL_Y = 100
+WALL_SIZE = int(MAX_X / 80)
+WALL_SPACE = int(MAX_Y / 10)
 
 MAZE_WIDTH = MAX_X - (BORDER*2)
 MAZE_HEIGHT = MAX_Y - (BORDER*2)
+
+MENU_WIDTH = 500
+
+PLAYER_WIDTH = 75
+PLAYER_HEIGHT = 75
+
+PLAYER_X = MAX_X - MENU_WIDTH - WALL_SPACE - 10
+PLAYER_Y = MAX_Y - 125
+
+PLAYER_DX = 8
+PLAYER_DY = PLAYER_DX * -1
+
+PLAYER_SPEED = 10

@@ -30,76 +30,78 @@ def main():
     cast["walls"] = []
     cast["levels"] = []
 
-    # TODO: Create a player here and add it to the list
+    # CREATE PLAYER
     player_list = []
     player = Player()
     player.create_player()
     player_list.append(player)
     cast["player"] = player_list
 
-    # TODO: Create walls here and add them to the list
+    # CREATE WALLS
     wall_list = []
-
-    # for y in range(constants.BORDER, constants.MAZE_HEIGHT):
-    #     for x in range(constants.BORDER, constants.MAZE_WIDTH):
-    #         wall = Wall()
-    #         wall.create_wall(x, y)
-    #         wall_list.append(wall)
-    # cast["walls"] = wall_list
-
     # create top of maze
-    for x in range(0, int(constants.WALL_WIDTH + constants.MAX_X), constants.WALL_WIDTH):
+    for x in range(0, int(constants.WALL_SIZE + constants.MAX_X), constants.WALL_SIZE):
         wall = Wall()
         wall.create_wall(x, 0)
         wall_list.append(wall)
-        x+=constants.WALL_WIDTH
+        x+=constants.WALL_SIZE
     # create bottom left border
-    left_border = int((constants.MAX_X/2) + constants.WALL_WIDTH - constants.BORDER)
-    for x in range(0, left_border, constants.WALL_WIDTH):
+    left_end = int(constants.MAX_X - constants.WALL_SPACE - constants.MENU_WIDTH)
+    for x in range(0, left_end, constants.WALL_SIZE):
         wall = Wall()
         wall.create_wall(x, constants.MAX_Y-constants.BORDER)
         wall_list.append(wall)
-    # create bottom right border
-    right_bottom_start = int(left_border + constants.BORDER)
-    for x in range(right_bottom_start, constants.MAX_X, constants.WALL_WIDTH): 
+    # create bottom menu bottom border
+    right_start = int(left_end + constants.WALL_SPACE)
+    for x in range(right_start, constants.MAX_X, constants.WALL_SIZE): 
         wall = Wall()
-        wall.create_wall(x, constants.MAX_Y-constants.BORDER)
+        wall.create_wall(x, int(constants.MAX_Y-constants.WALL_SIZE))
+        wall_list.append(wall)
+    # create menu left border
+    for y in range(0, constants.MAX_Y, constants.WALL_SIZE):
+        wall = Wall()
+        wall.create_wall(right_start, y)
+        wall_list.append(wall)
+    # create right border
+    for y in range(0, constants.MAX_Y, constants.WALL_SIZE):
+        wall = Wall()
+        wall.create_wall(int(constants.MAX_X-constants.WALL_SIZE), y)
+        wall_list.append(wall)
+    # create left border
+    for y in range(0, constants.MAX_Y, constants.WALL_SIZE):
+        wall = Wall()
+        wall.create_wall(0, y)
         wall_list.append(wall)
     # create obstacles 
     # create obstacles type 1
-    for _ in range(constants.BLOCK_COUNT): 
-        x = random.randint(0, constants.RANGE_X)
-        y = random.randint(0, constants.RANGE_Y)
-        wall = Wall()
-        wall.create_wall(x, y)
-        wall_list.append(wall)
-        wall2 = Wall()
-        wall2.create_wall(int(x+constants.WALL_WIDTH), y)
-        wall_list.append(wall2)
-        wall3 = Wall()
-        wall3.create_wall(int(x+constants.WALL_WIDTH*2), y)
-        wall_list.append(wall3)
+    # for _ in range(constants.BLOCK_COUNT): 
+    #     x = random.randint(0, constants.RANGE_X)
+    #     y = random.randint(0, constants.RANGE_Y)
+    #     wall = Wall()
+    #     wall.create_wall(x, y)
+    #     wall_list.append(wall)
+    #     wall2 = Wall()
+    #     wall2.create_wall(int(x+constants.WALL_SIZE), y)
+    #     wall_list.append(wall2)
+    #     wall3 = Wall()
+    #     wall3.create_wall(int(x+constants.WALL_SIZE*2), y)
+    #     wall_list.append(wall3)
     # create obstacles type 1
-    for _ in range(3): 
-        x = random.randint(0, constants.RANGE_X)
-        y = random.randint(0, constants.RANGE_Y)
-        wall = Wall()
-        wall.create_wall(x, y)
-        wall_list.append(wall)
-        wall2 = Wall()
-        wall2.create_wall(int(x+constants.WALL_WIDTH), y)
-        wall_list.append(wall2)
-        wall3 = Wall()
-        wall3.create_wall(int(x+constants.WALL_WIDTH), int(y+constants.WALL_HEIGHT))
-        wall_list.append(wall3)
+    # for _ in range(3): 
+    #     x = random.randint(0, constants.RANGE_X)
+    #     y = random.randint(0, constants.RANGE_Y)
+    #     wall = Wall()
+    #     wall.create_wall(x, y)
+    #     wall_list.append(wall)
+    #     wall2 = Wall()
+    #     wall2.create_wall(int(x+constants.WALL_SIZE), y)
+    #     wall_list.append(wall2)
+    #     wall3 = Wall()
+    #     wall3.create_wall(int(x+constants.WALL_SIZE), int(y+constants.WALL_SIZE))
+    #     wall_list.append(wall3)
     cast["walls"] = wall_list
-    # level_list = []
-    # level = LevelFactory()
-    # level.create_maze()
-    # level_list.append(level)
-    # cast["levels"] = level_list
 
-    # TODO: Create targets here and add them to the list
+    # CREATE TARGETS
     target_list = []
 
     for _ in range(constants.BLOCK_COUNT): 
