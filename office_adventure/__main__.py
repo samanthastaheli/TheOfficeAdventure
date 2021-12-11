@@ -66,12 +66,32 @@ def main():
         wall.create_wall(x, constants.MAX_Y-constants.BORDER)
         wall_list.append(wall)
     # create obstacles 
+    # create obstacles type 1
     for _ in range(constants.BLOCK_COUNT): 
         x = random.randint(0, constants.RANGE_X)
         y = random.randint(0, constants.RANGE_Y)
         wall = Wall()
         wall.create_wall(x, y)
         wall_list.append(wall)
+        wall2 = Wall()
+        wall2.create_wall(int(x+constants.WALL_WIDTH), y)
+        wall_list.append(wall2)
+        wall3 = Wall()
+        wall3.create_wall(int(x+constants.WALL_WIDTH*2), y)
+        wall_list.append(wall3)
+    # create obstacles type 1
+    for _ in range(3): 
+        x = random.randint(0, constants.RANGE_X)
+        y = random.randint(0, constants.RANGE_Y)
+        wall = Wall()
+        wall.create_wall(x, y)
+        wall_list.append(wall)
+        wall2 = Wall()
+        wall2.create_wall(int(x+constants.WALL_WIDTH), y)
+        wall_list.append(wall2)
+        wall3 = Wall()
+        wall3.create_wall(int(x+constants.WALL_WIDTH), int(y+constants.WALL_HEIGHT))
+        wall_list.append(wall3)
     cast["walls"] = wall_list
     # level_list = []
     # level = LevelFactory()
