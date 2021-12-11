@@ -34,13 +34,13 @@ class OutputService:
             self (OutputService): An instance of OutputService.
         """ 
         pyray.begin_drawing()
-        pyray.clear_background(pyray.BLACK)
+        pyray.clear_background(pyray.GRAY)
 
     def draw_box(self, x, y, width, height):
         """
         Draws at rectangular box with the provided specifications.
         """
-        pyray.draw_rectangle(x, y, width, height, pyray.BLUE)
+        pyray.draw_rectangle(x, y, width, height, pyray.BLACK)
 
     def draw_text(self, x, y, text, is_dark_text):
         """
