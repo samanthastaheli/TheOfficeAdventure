@@ -10,13 +10,7 @@ from game.physics_service import PhysicsService
 from game.audio_service import AudioService
 
 # TODO: Add imports similar to the following when you create these classes
-from game.player import Player
 from game.level_factory import LevelFactory
-from game.wall import Wall
-from game.obstacle import Obstacle
-from game.target import Target
-from game.placeholder import PlaceHolder
-# from game.display_text import DisplayText
 from game.control_actors_action import ControlActorsAction
 from game.handle_collisions_action import HandleCollisionsAction
 from game.handle_offscreen_action import HandleOffScreenAction
