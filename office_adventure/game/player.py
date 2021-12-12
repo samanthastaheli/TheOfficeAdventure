@@ -7,8 +7,9 @@ class Player(Actor):
         super().__init__()
         self._player = self.set_position(Point(0,0))
 
-    def create_player(self):
-        self._player = self.set_position(Point(int(constants.PLAYER_X), int(constants.PLAYER_Y)))
-        # self.set_image(constants.IMAGE_DEFAULT)
-        self.set_height(constants.PLAYER_HEIGHT)
-        self.set_width(constants.PLAYER_WIDTH)
+    def create_player(self, x, y):
+        self._player = self.set_position(Point(x, y))
+        self.set_image(constants.IMAGE_DEFAULT)
+        self.set_height(int(24))
+        self.set_width(int(24))
+        # self.set_velocity(Point(constants.PLAYER_SPEED, constants.PLAYER_SPEED))

@@ -34,11 +34,7 @@ class MoveActorsAction(Action):
         position = Point(x, y)
         actor.set_position(position)
 
-    def update_velocity(self, actor):
-        ''' change velocity when needed
-        Args: the actor (key in cast dict) to change its velocity
-        '''
-        pass
+    
 
 
 

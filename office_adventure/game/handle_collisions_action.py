@@ -1,8 +1,10 @@
 import random
 from game import constants
 from game.action import Action
+from game.actor import Actor
 from game.audio_service import AudioService
 from game.point import Point
+from game.level_factory import LevelFactory
 
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. 
@@ -23,38 +25,85 @@ class HandleCollisionsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
         # get cast
-        # player = cast["players"][0]
-        # target = cast["target"]
+        player = cast["player"][0]
+        targets = cast["targets"]
+        placeholders = cast["placeholders"]
+        walls = cast["walls"]
+        obstacles = cast["obstacles"]
+
+        for wall in walls:
+            if self._physics_service.is_collision(player, wall):
+                self.check_collision(player, wall)
+                # print('Collision!!!!')
+        for target in targets:
+            i = 1
+            for place in placeholders:
+                if self._physics_service.is_collision(player, target):
+                    if self.check_direction(player, target) != 'none':
+                        self.add_inventory(target, place, i)
+                        i += 1
+
 
     def check_collision(self, actor1, actor2):
         ''' Checks which axis collision was.
             Checks if target collides with player
         Arg:
-            actor1: actor from cast dictionary (usually target)
-            actor2: actor from cast dictionary (usually player)
+            actor1: actor from cast dictionary (usually player)
+            actor2: actor from cast dictionary (usually wall, obstacle, or target)
         '''
-        position = actor1.get_position()
-        x = position.get_x()
-        y = position.get_y()
 
-        # TODO: add if statement
+        if self.check_direction(actor1, actor2) == 'top':
+            self.stop_top(actor1)
+        elif self.check_direction(actor1, actor2) == 'bottom':
+            self.stop_bottom(actor1)
+        elif self.check_direction(actor1, actor2) == 'left':
+            self.stop_left(actor1)
+        elif self.check_direction(actor1, actor2) == 'right':
+            self.stop_right(actor1)
+
+        '''
         if self.check_direction(actor1, actor2) == 'top' or self.check_direction(actor1, actor2) == 'bottom':
-            self._audio_service.play_sound(constants.SOUND_BOUNCE)
-            actor1.set_position(Point(x, (y - (f'constants.{actor1}_HEIGHT'))))
+            # self.stop_actor(actor1)
+            self.change_y(actor1)
         elif self.check_direction(actor1, actor2) == 'left' or self.check_direction(actor1, actor2) == 'right':
-            self._audio_service.play_sound(constants.SOUND_BOUNCE)
-            actor1.set_position(Point((x - (f'constants.{actor1}_WIDTH')), y))
+            # self.stop_actor(actor1)
+            self.change_x(actor1)
 
-    def get_collision_overlap(actor1, actor2):
+        overlap = self.get_collision_overlap(actor1, actor2)
+    
+        # if overlap_x >= 0 or overlap_y >= 0:
+        #     actor2.set_velocity(0)
+        # else:
+        #     actor2.set_velocity(constants.PLAYER_SPEED)
+        
+        if overlap.get_x() <= overlap.get_y():
+            # Depth was least along the x-axis, so that's our point of collision
+            if overlap.get_x() >= 0:
+                #Collision on the left
+                actor2.set_position()
+            else:
+                #Collision on the right
+                actor2.set_position()
+        else:
+        #Collision on the y-axis
+            if overlap.get_y() >= 0:
+                #Collision on the top
+                actor2.set_position()
+            else:
+                #Collision on the bottom
+                actor2.set_position()
+        '''
+        
+    def get_collision_overlap(self, actor1, actor2):
         '''
         Using approach from here: https://stackoverflow.com/a/56607347
         The general idea is: Find the depth the actor1 has gone into the
         actor2, and then the one with the smallest depth is our collision side
         '''
-        actor1HalfWidth = actor1.GetWidth() / 2;
-        actor1HalfHeight = actor1.GetHeight() / 2;
-        actor2HalfWidth = actor2.GetWidth() / 2;
-        actor2HalfHeight = actor2.GetHeight() / 2;
+        actor1HalfWidth = actor1.get_width() / 2;
+        actor1HalfHeight = actor1.get_height() / 2;
+        actor2HalfWidth = actor2.get_width() / 2;
+        actor2HalfHeight = actor2.get_height() / 2;
         # Find the centers
         actor1_center_x = actor1.get_position().get_x() + actor1HalfWidth;
         actor1_center_y = actor1.get_position().get_y() + actor1HalfHeight;
@@ -83,29 +132,131 @@ class HandleCollisionsAction(Action):
         '''Checks what direction ball needs to go when it collides with brick or player.
         Args:
             actor1: an actor (player)
-            actor2: another actor (wall or obstacle)
+            actor2: another actor (wall, obstacle, or target)
         '''
         position = actor1.get_position()
         x = position.get_x()
         y = position.get_y()
 
         if actor1.get_bottom_edge() >= actor2.get_top_edge():
+            # print('Collision Top!')
             return 'top'
         elif actor1.get_top_edge() <= actor2.get_bottom_edge():
+            # print('Collision Bottom!')
             return 'bottom'
         elif actor1.get_left_edge() <= actor2.get_right_edge():
+            # print('Collision Left!')
             return 'left'
         elif actor1.get_right_edge() >= actor2.get_left_edge():
+            # print('Collision Right!')
             return 'right'
         else:
             return 'none'
+      
+    def stop_actor(self, actor):
+        ''' change velocity when needed
+        Args: the actor (key in cast dict) to change its velocity
+        '''
+        dx = actor.get_velocity().get_x()
+        dy = actor.get_velocity().get_y()
+        actor.set_velocity(Point(dx*0,dy*0))
+        print('Stop Actor Called!')
+
+    def stop_left(self, actor):
+        ''' change velocity when needed
+        Args: the actor (key in cast dict) to change its velocity
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point((x - 1), y))
     
-    def bounce_x(self, target):
-        dx = target.get_velocity().get_x()
-        dy = target.get_velocity().get_y()
-        target.set_velocity(Point(-dx,dy))
+    def change_y(self, actor):
+        ''' change velocity when needed
+        Args: the actor (key in cast dict) to change its velocity
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point(x, (y - constants.PLAYER_SIZE)))
+
+    def stop_left(self, actor):
+        ''' change player position based on collison direction
+        Args: the actor (key in cast dict) to change its position 
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point((x - 1), y))
+    
+    def stop_right(self, actor):
+        ''' change player position based on collison direction
+        Args: the actor (key in cast dict) to change its position 
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point((x - constants.PLAYER_SIZE), y))
+
+    def stop_top(self, actor):
+        ''' change player position based on collison direction
+        Args: the actor (key in cast dict) to change its position 
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point(x, (y - 1)))
+
+    def stop_bottom(self, actor):
+        ''' change player position based on collison direction
+        Args: the actor (key in cast dict) to change its position 
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point(x, (y - constants.PLAYER_SIZE)))
+
+    def add_inventory(self, target, place, place_num):
+        '''changes position of target to next avaible placeholder
+        Args: target: the target that has collided with player
+            place_num: next avaible placeholder spot
+        '''
+        # level = LevelFactory()
+        # places = level.get_placeholders()
+        # position = places[place_num].get_position()
+        # x = position.get_x()
+        # y = position.get_y()
+        if place_num == 1:
+            x = int(constants.MAX_X-constants.WALL_SPACE*3)
+            y = int(constants.BORDER)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
+        elif place_num == 2:
+            x = int(constants.MAX_X-constants.WALL_SPACE*2)
+            y = int(constants.BORDER)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
+        elif place_num == 3:
+            x = int(constants.MAX_X-constants.WALL_SPACE)
+            y = int(constants.BORDER)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
+        elif place_num == 4:
+            x = int(constants.MAX_X-constants.WALL_SPACE*3)
+            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
+        elif place_num == 5:
+            x = int(constants.MAX_X-constants.WALL_SPACE*2)
+            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
+        elif place_num == 6:
+            x = int(constants.MAX_X-constants.WALL_SPACE)
+            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
+            target.set_position(Point(x, y))
+            place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
         
-    def bounce_y(self, target):
-        dx = target.get_velocity().get_x()
-        dy = target.get_velocity().get_y()
-        target.set_velocity(Point(dx,-dy))
+        
+
+   
