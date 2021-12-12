@@ -26,6 +26,7 @@ IMAGE_DESK_VER = os.path.join(os.getcwd(), "./office_adventure/assets/deskver.pn
 SOUND_START = os.path.join(os.getcwd(), "./office_adventure/assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./office_adventure/assets/boing.wav")
 SOUND_OVER = os.path.join(os.getcwd(), "./office_adventure/assets/over.wav")
+SOUND_AWARD = os.path.join(os.getcwd(), "./office_adventure/assets/award.mp3")
 
 WALL_SIZE = int(MAX_X / 80)
 WALL_SIZE_SM = int(WALL_SIZE / 3)

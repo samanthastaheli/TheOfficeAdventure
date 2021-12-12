@@ -41,6 +41,7 @@ class HandleCollisionsAction(Action):
                 if self._physics_service.is_collision(player, target):
                     if self.check_direction(player, target) != 'none':
                         self.add_inventory(target, place, i)
+                        self._audio_service.play_sound(constants.SOUND_AWARD)
                         i += 1
 
 
