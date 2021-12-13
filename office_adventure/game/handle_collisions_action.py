@@ -163,6 +163,15 @@ class HandleCollisionsAction(Action):
         actor.set_velocity(Point(dx*0,dy*0))
         print('Stop Actor Called!')
 
+    def change_y(self, actor):
+        ''' change velocity when needed
+        Args: the actor (key in cast dict) to change its velocity
+        '''
+        position = actor.get_position()
+        x = position.get_x()
+        y = position.get_y()
+        actor.set_position(Point(x, (y - constants.PLAYER_SIZE)))
+        
     def stop_left(self, actor):
         ''' change velocity when needed
         Args: the actor (key in cast dict) to change its velocity
@@ -172,14 +181,7 @@ class HandleCollisionsAction(Action):
         y = position.get_y()
         actor.set_position(Point((x - 1), y))
     
-    def change_y(self, actor):
-        ''' change velocity when needed
-        Args: the actor (key in cast dict) to change its velocity
-        '''
-        position = actor.get_position()
-        x = position.get_x()
-        y = position.get_y()
-        actor.set_position(Point(x, (y - constants.PLAYER_SIZE)))
+    
 
     def stop_left(self, actor):
         ''' change player position based on collison direction
