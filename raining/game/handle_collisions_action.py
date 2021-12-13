@@ -27,23 +27,17 @@ class HandleCollisionsAction(Action):
         # get cast
         player = cast["player"][0]
         targets = cast["targets"]
-        placeholders = cast["placeholders"]
         walls = cast["walls"]
-        obstacles = cast["obstacles"]
-        i = 0
 
         for wall in walls:
             if self._physics_service.is_collision(player, wall):
                 self.check_collision(player, wall)
                 # print('Collision!!!!')
         for target in targets:
-            for place in placeholders:
-                if self._physics_service.is_collision(player, target):
-                    if self.check_direction(player, target) != 'none':
-                        self.add_inventory(target, place, i)
-                        self._audio_service.play_sound(constants.SOUND_AWARD)
-                        print(i)
-                        i+=1
+            if self._physics_service.is_collision(player, target):
+                if self.check_direction(player, target) != 'none':
+                    self.add_inventory(target)
+                    self._audio_service.play_sound(constants.SOUND_AWARD)
 
     def check_collision(self, actor1, actor2):
         ''' Checks which axis collision was.
@@ -219,48 +213,10 @@ class HandleCollisionsAction(Action):
         y = position.get_y()
         actor.set_position(Point(x, (y - constants.PLAYER_SIZE)))
 
-    def add_inventory(self, target, place, place_num):
-        '''changes position of target to next avaible placeholder
+    def add_inventory(self, target):
+        '''changes position of target to offscreen
         Args: target: the target that has collided with player
-            place_num: next avaible placeholder spot
         '''
-        # level = LevelFactory()
-        # places = level.get_placeholders()
-        # print(places)
-        # position = places[place_num].get_position()
-        # x = position.get_x()
-        # y = position.get_y()
-        if place_num == 1:
-            x = int(constants.MAX_X-constants.WALL_SPACE*3)
-            y = int(constants.BORDER)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        elif place_num == 2:
-            x = int(constants.MAX_X-constants.WALL_SPACE*2)
-            y = int(constants.BORDER)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        elif place_num == 3:
-            x = int(constants.MAX_X-constants.WALL_SPACE)
-            y = int(constants.BORDER)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        elif place_num == 4:
-            x = int(constants.MAX_X-constants.WALL_SPACE*3)
-            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        elif place_num == 5:
-            x = int(constants.MAX_X-constants.WALL_SPACE*2)
-            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        elif place_num == 6:
-            x = int(constants.MAX_X-constants.WALL_SPACE)
-            y = int(constants.BORDER + constants.TARGET_SIZE + constants.WALL_SIZE*2)
-            target.set_position(Point(x, y))
-            # place.set_position(Point(int(constants.MAX_X+100), int(constants.MAX_Y+100)))
-        
-        
-
-   
+        x = int(constants.MAX_X-100)
+        y = int(constants.MAX_Y+100)
+        target.set_position(Point(x, y))
