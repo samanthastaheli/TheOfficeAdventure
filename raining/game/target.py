@@ -9,36 +9,24 @@ class Target(Actor):
         super().__init__()
         self._target = self.set_position(Point(0,0))
         self._placeholder = self.set_position(Point(0,0))
-        self._type = ['phone', 'plant', 'file', 'dundie', 'tea']
+        self._type = ['dog', 'dog2', 'cat', 'cat2', 'drop', 'umbrella']
 
     def create_target(self, x, y, type):
         self._target = self.set_position(Point(x, y))
-        if type == 'phone':
-            self.set_image(constants.IMAGE_PHONE)
-            self.set_height(constants.TARGET_SIZE)
-            self.set_width(constants.TARGET_SIZE)
-        elif type == 'plant':
-            self.set_image(constants.IMAGE_PLANT)
-            self.set_height(constants.TARGET_SIZE)
-            self.set_width(constants.TARGET_SIZE)
-        elif type == 'file':
-            self.set_image(constants.IMAGE_FILE)
-            self.set_height(constants.TARGET_SIZE)
-            self.set_width(constants.TARGET_SIZE)
-        elif type == 'dundie':
-            self.set_image(constants.IMAGE_DUNDIE)
-            self.set_height(constants.TARGET_SIZE)
-            self.set_width(constants.TARGET_SIZE)
-        elif type == 'tea':
-            self.set_image(constants.IMAGE_TEA)
-            self.set_height(constants.TARGET_SIZE)
-            self.set_width(constants.TARGET_SIZE)
-
-    def create_placeholder(self, x, y):
-        self._placeholder = self.set_position(Point(x, y))
-        self.set_image(constants.IMAGE_SQ)
         self.set_height(constants.TARGET_SIZE)
         self.set_width(constants.TARGET_SIZE)
-
+        if type == 'dog':
+            self.set_image(constants.IMAGE_DOG)
+        elif type == 'dog2':
+            self.set_image(constants.IMAGE_DOG2)
+        elif type == 'cat':
+            self.set_image(constants.IMAGE_CAT)
+        elif type == 'cat2':
+            self.set_image(constants.IMAGE_CAT2)
+        elif type == 'drop':
+            self.set_image(constants.IMAGE_DROP)
+        elif type == 'umbrella':
+            self.set_image(constants.IMAGE_UMBRELLA)
+            
     def get_target_type(self):
         return self._type

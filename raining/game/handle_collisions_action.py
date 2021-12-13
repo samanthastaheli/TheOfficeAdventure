@@ -28,6 +28,7 @@ class HandleCollisionsAction(Action):
         player = cast["player"][0]
         targets = cast["targets"]
         walls = cast["walls"]
+        level = LevelFactory()
 
         for wall in walls:
             if self._physics_service.is_collision(player, wall):
@@ -36,8 +37,11 @@ class HandleCollisionsAction(Action):
         for target in targets:
             if self._physics_service.is_collision(player, target):
                 if self.check_direction(player, target) != 'none':
-                    self.add_inventory(target)
+                    # self.add_inventory(target)
+                    targets.remove(target)
+                    level.build_target()
                     self._audio_service.play_sound(constants.SOUND_AWARD)
+                    print("Target removed by collison")
 
     def check_collision(self, actor1, actor2):
         ''' Checks which axis collision was.

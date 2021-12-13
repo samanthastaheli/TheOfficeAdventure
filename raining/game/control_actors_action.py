@@ -1,5 +1,6 @@
 from game.action import Action
 from game import constants
+from game.point import Point
 
 class ControlActorsAction(Action):
     def __init__(self, input_service) -> None:
@@ -16,3 +17,6 @@ class ControlActorsAction(Action):
         direction = self._input_service.get_direction()
         player = cast["player"][0] 
         player.set_velocity(direction.scale(constants.PLAYER_SPEED))   
+        targets = cast["targets"]
+        for target in targets:
+            target.set_velocity(Point(0,constants.TARGET_SPEED))   

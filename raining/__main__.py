@@ -34,11 +34,15 @@ def main():
     level.build_walls()
     level.build_targets()
     level.build_player()
+    level.build_target()
 
     # append to cast dict
     cast["walls"] = level.get_walls()
     cast["targets"] = level.get_targets()
     cast["player"] = level.get_player()
+    
+    # if len(cast["targets"]) > 3:
+    #     level.build_targets
     
     # Create the script {key: tag, value: list}
     script = {}

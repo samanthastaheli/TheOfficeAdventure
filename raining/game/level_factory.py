@@ -38,18 +38,18 @@ class LevelFactory():
     def get_walls(self):
         return self._wall_list
 
+    def build_target(self):
+        x = random.randint(constants.WALL_SPACE, constants.RANGE_X)
+        y = random.randint(0, constants.RANGE_Y)
+        target = Target()
+        type = random.choice(target.get_target_type())
+        target.create_target(x, y, type)
+        self._target_list.append(target)
+
     def build_targets(self):
-        # target = Target()
-        # target.create_target(100, 100, 'phone')
-        # self._target_list.append(target)
-
-        # plant1 = Target()
-        # plant1.create_target(int(constants.START_LEFT+constants.WALL_SIZE), int(constants.MAX_Y-constants.BORDER*2), 'plant')
-        # self._target_list.append(plant1)
-
         for _ in range(constants.TARGET_COUNT):
             x = random.randint(constants.WALL_SPACE, constants.RANGE_X)
-            y = random.randint(constants.WALL_SPACE, constants.RANGE_Y)
+            y = random.randint(0, constants.RANGE_Y)
             target = Target()
             type = random.choice(target.get_target_type())
             target.create_target(x, y, type)
@@ -60,7 +60,7 @@ class LevelFactory():
 
     def build_player(self):
         player = Player()
-        player.create_player(int(constants.START_LEFT + constants.WALL_SIZE), int(constants.MAX_Y-constants.WALL_SIZE-constants.BORDER))
+        player.create_player(int(constants.MAX_X/2), int(constants.MAX_Y-constants.PLAYER_SIZE*4))
         self._player_list.append(player)
 
     def get_player(self):
