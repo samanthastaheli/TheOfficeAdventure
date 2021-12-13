@@ -14,5 +14,5 @@ class DisplayText(Actor):
         self.set_position(Point(x, y))
         # self.set_height(constants.TARGET_HEIGHT)
         # self.set_width(constants.TARGET_WIDTH)
-    def display_text(self):
-        self.create_text('The Office', int(constants.MAX_X - constants.MENU_WIDTH + constants.WALL_SIZE), int(constants.WALL_SIZE*2))
+    def display_text(self, text, x, y):
+        self.create_text(text, x, y)

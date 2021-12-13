@@ -24,27 +24,21 @@ def main():
 
     cast["player"] = []
     cast["targets"] = []
-    cast["placeholders"] = []
     cast["walls"] = []
     cast["levels"] = []
-    cast["obstacles"] = []
     cast["text"] = []
 
     level = LevelFactory()
 
     # build all actors
     level.build_walls()
-    level.build_desk()
     level.build_targets()
     level.build_player()
-    level.build_placeholders()
 
     # append to cast dict
     cast["walls"] = level.get_walls()
-    cast["obstacles"] = level.get_obstacles()
     cast["targets"] = level.get_targets()
     cast["player"] = level.get_player()
-    cast["placeholders"] = level.get_placeholders()
     
     # Create the script {key: tag, value: list}
     script = {}
@@ -66,7 +60,7 @@ def main():
     script["output"] = [draw_actors_action]
 
     # Start the game
-    output_service.open_window("The Office Adventure");
+    output_service.open_window("Raining");
     audio_service.start_audio()
     audio_service.play_sound(constants.SOUND_START)
     

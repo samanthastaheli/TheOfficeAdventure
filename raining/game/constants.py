@@ -17,11 +17,6 @@ IMAGE_FILE = os.path.join(os.getcwd(), "./office_adventure/assets/folder.png")
 IMAGE_TEA = os.path.join(os.getcwd(), "./office_adventure/assets/tea-pot.png")
 IMAGE_DUNDIE = os.path.join(os.getcwd(), "./office_adventure/assets/trophy.png")
 IMAGE_SQ = os.path.join(os.getcwd(), "./office_adventure/assets/box.png")
-IMAGE_DESK_FLAT_HOR = os.path.join(os.getcwd(), "./office_adventure/assets/deskflat.png")
-IMAGE_DESK_FLAT_VER = os.path.join(os.getcwd(), "./office_adventure/assets/deskflatver.png")
-IMAGE_DESK_HOR = os.path.join(os.getcwd(), "./office_adventure/assets/deskhor.png")
-IMAGE_DESK_VER = os.path.join(os.getcwd(), "./office_adventure/assets/deskver.png")
-
 
 SOUND_START = os.path.join(os.getcwd(), "./office_adventure/assets/start.wav")
 SOUND_BOUNCE = os.path.join(os.getcwd(), "./office_adventure/assets/boing.wav")
