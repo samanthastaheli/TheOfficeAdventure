@@ -1,6 +1,6 @@
 import os
 
-MAX_X = 1750
+MAX_X = 1000
 MAX_Y = int(MAX_X - MAX_X*0.25)
 FRAME_RATE = 30
 
