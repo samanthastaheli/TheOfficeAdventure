@@ -8,11 +8,13 @@
 - Super Mario bros but Star Wars like one on didj
 - Dad and Adam’s game
 - Escape room
+
 ### Favorite games:
 - Halo
 - Zelda
 - Clue but lotr
 - Catan but lotr
+
 ### Themes:
 - Dinosaurs/science
 - Lotr
@@ -21,7 +23,9 @@
 - Ready Player One
     - Find eggs
 - The Office
-### Idea: adventure/escape room/clue lotr or Star Wars or ready player one theme
+
+### Idea: 
+- adventure/escape room/clue lotr or Star Wars or ready player one theme
 
 ### Idea: The Office Adventure
 - Adventure/Maze
