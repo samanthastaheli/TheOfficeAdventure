@@ -1,4 +1,4 @@
-# CSE 210 final project Preparation and Planning
+# Game Plan
 
 ## Idea: 
 - adventure/escape room
