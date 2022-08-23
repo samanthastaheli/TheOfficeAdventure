@@ -1,2 +1,3 @@
-# cse-210-final-project
-Programming with Classes final project.
+# The Office Adventure
+
+An office themed game.
